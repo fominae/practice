@@ -583,3 +583,19 @@ input[type=password]::placeholder {
     cursor: pointer;
 
 }
+
+.employer_link{
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    align-items: center;
+
+}
+
+.nav_link{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+}
