@@ -14,8 +14,11 @@ class Site
     {
         return new View('site.home');
     }
-    public function add_employee(): string
+    public function add_employee(Request $request): string
     {
+        if ($request->method === 'POST' && User::create($request->all())) {
+            app()->route->redirect('/add_employee');
+        }
         return new View('site.add_employee');
     }
 
@@ -38,8 +41,10 @@ class Site
             return new View('site.login');
         }
         //Если удалось аутентифицировать пользователя, то редирект
-        if (Auth::attempt($request->all())) {
+        if (Auth::attempt($request->all()) && Auth::checkRole()) {
             app()->route->redirect('/add_employee');
+        }else if(Auth::attempt($request->all())){
+            app()->route->redirect('/employee');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);
