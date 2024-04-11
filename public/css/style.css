@@ -547,17 +547,6 @@ input[type=password]::placeholder {
 
 }
 
-.employee_container {
-    width: 1000px;
-    height: 1000px;
-    background-color: rgba(62, 88, 130, 0.18);
-    padding: 50px 100px 0 100px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-
-}
 
 .employee_container input {
     padding: 10px;
@@ -565,16 +554,6 @@ input[type=password]::placeholder {
 
 }
 
-.employee_container button {
-    background: #3E5882;
-    height: 54px;
-    width: 132px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 20px 0 20px 0;
-    cursor: pointer;
-}
 
 .login_department {
 
