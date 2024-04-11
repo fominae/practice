@@ -6,7 +6,7 @@
                 <a class="employee_link" href="<?= app()->route->getUrl('/create') ?>"> Добавить сотрудника</a>
             </div>
             <div class="add_department">
-                <a class="employee_link" href="<?= app()->route->getUrl('/home') ?>"> Добавить подразделение</a>
+                <a class="employee_link" href="<?= app()->route->getUrl('/add_departmen') ?>"> Добавить подразделение</a>
             </div>
         </div>
         <div class="employee_dropdown">

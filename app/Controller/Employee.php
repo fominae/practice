@@ -18,5 +18,10 @@ class Employee
     {
         return new View('site.create');
     }
+
+    public function add_departmen(): string
+    {
+        return new View('site.add_departmen');
+    }
 }
 

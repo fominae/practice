@@ -481,4 +481,62 @@ input[type=password]::placeholder {
 
 
 
+.add_departmen{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
+}
+
+.add_departmen_container {
+    width: 681px;
+    height: 376px;
+    background-color: rgba(62, 88, 130, 0.18);
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.add_departmen_container h1 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.add_departmen_container input {
+    width: 475px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.add_departmen_container button {
+    background: #3E5882;
+    height: 54px;
+    width: 132px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 10px 0;
+    cursor: pointer;
+}
+
+.add_departmen_form h1 {
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.login_text {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.login_input {
+    height: 54px;
+    width: 475px;
+
+}
