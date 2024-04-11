@@ -56,7 +56,7 @@
                     <p class="line_information"></p>
                 </div>
                 <div class="button_department_form">
-                    <button class="back"><a class="login" href="<?= app()->route->getUrl('/#') ?>">Редактировать</a>
+                    <button class="back"><a class="login_department" href="<?= app()->route->getUrl('/edit') ?>">Редактировать</a>
                     </button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                     <p class="line_information"></p>
                 </div>
                 <div class="button_department_form">
-                    <button class="back"><a class="login" href="<?= app()->route->getUrl('/#') ?>">Редактировать</a>
+                    <button class="back"><a class="login_department" href="<?= app()->route->getUrl('/edit') ?>">Редактировать</a>
                     </button>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                     <p class="line_information"></p>
                 </div>
                 <div class="button_department_form">
-                    <button class="back"><a class="login" href="<?= app()->route->getUrl('/#') ?>">Редактировать</a>
+                    <button class="back"><a class="login_department" href="<?= app()->route->getUrl('/edit') ?>">Редактировать</a>
                     </button>
                 </div>
             </div>

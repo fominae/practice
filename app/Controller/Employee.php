@@ -23,5 +23,10 @@ class Employee
     {
         return new View('site.add_departmen');
     }
+
+    public function edit(): string
+    {
+        return new View('site.edit');
+    }
 }
 
