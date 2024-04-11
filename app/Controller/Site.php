@@ -14,8 +14,12 @@ class Site
     {
         return new View('site.home');
     }
+    public function add_employee(): string
+    {
+        return new View('site.add_employee');
+    }
 
-    public function hello(): string
+        public function hello(): string
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
@@ -35,7 +39,7 @@ class Site
         }
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
-            app()->route->redirect('/hello');
+            app()->route->redirect('/add_employee');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return new View('site.login', ['message' => 'Неправильные логин или пароль']);

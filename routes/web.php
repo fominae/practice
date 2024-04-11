@@ -6,4 +6,5 @@ Route::add('GET', '/hello', [Controller\Site::class, 'hello'])
     ->middleware('auth');
 Route::add(['GET', 'POST'], '/login', [Controller\Site::class, 'login']);
 Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
+Route::add('GET', '/add_employee', [Controller\Site::class, 'add_employee']);
 Route::add('GET', '/home', [Controller\Site::class, 'index']);

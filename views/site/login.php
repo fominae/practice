@@ -10,7 +10,7 @@
             <p class="login_text"> Пароль</p>
             <input class="login_input" type="password" placeholder="Пароль" name="password">
         </div>
-        <button class="back"><a class="login" href="<?= app()->route->getUrl('/') ?>">Вход</a></button>
+        <button class="back"><a class="login" href="<?= app()->route->getUrl('/add_employee') ?>">Вход</a></button>
     </form>
 </div>
 

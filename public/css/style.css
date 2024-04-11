@@ -212,4 +212,68 @@ input[type=password]::placeholder {
     color: #AEAEAE;
 
 }
+.log {
+    margin-bottom: 20px;
+}
+
+.error_message {
+    color: rgba(189, 10, 0, 0.36);
+}
+
+
+.add_employee_container {
+    width: 681px;
+    background-color: rgba(62, 88, 130, 0.18);
+    padding: 50px 100px 0 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+
+}
+
+.add_employee_container input {
+    width: 475px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+
+.add_employee_container button {
+    background: #3E5882;
+    height: 54px;
+    width: 132px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+}
+
+.add_employee input {
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+
+.add_employee button {
+    background: #3E5882;
+    height: 54px;
+    width: 132px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+}
+
+.title_add{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+
+
 
