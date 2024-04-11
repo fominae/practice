@@ -274,13 +274,6 @@ input[type=password]::placeholder {
 }
 
 
-
-
-
-
-
-
-
 .department_structure {
     height: 54px;
     width: 350px;
@@ -290,10 +283,6 @@ input[type=password]::placeholder {
     padding: 10px 30px 10px 30px;
     font-weight: bold;
 }
-
-
-
-
 
 
 .employee_dropdown button {
@@ -413,6 +402,81 @@ input[type=password]::placeholder {
     margin: 10px 30px 10px 30px;
     text-decoration: underline;
 
+}
+
+.new_employee_form h1 {
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.new_employee_form p {
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.new_employee_form{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add_employee {
+    width: 1000px;
+    height: 1000px;
+    background-color: rgba(62, 88, 130, 0.18);
+    padding: 50px 100px 0 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+
+}
+
+.add_employee input {
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+
+.add_employee button {
+    background: #3E5882;
+    height: 54px;
+    width: 132px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+}
+
+
+.new_employee_department_structure{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:475px;
+    height: 54px;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.gender{
+    width: 475px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.gender_info{
+    display: flex;
+    gap:15px;
+    margin-bottom: 25px;
 }
 
 

@@ -14,14 +14,6 @@ class Site
     {
         return new View('site.home');
     }
-    public function add_employee(Request $request): string
-    {
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/add_employee');
-        }
-        return new View('site.add_employee');
-    }
-
         public function hello(): string
     {
         return new View('site.hello', ['message' => 'hello working']);
