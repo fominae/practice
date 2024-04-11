@@ -1,13 +1,16 @@
-<h2>Авторизация</h2>
-<h3><?= $message ?? ''; ?></h3>
-
-<h3><?= app()->auth->user()->name ?? ''; ?></h3>
-<?php
-if (!app()->auth::check()):
-    ?>
-    <form method="post">
-        <label>Логин <input type="text" name="login"></label>
-        <label>Пароль <input type="password" name="password"></label>
-        <button>Войти</button>
+<div class="login_form">
+    <h1>ВХОД</h1>
+    <form class="login-container" method="post">
+        <h4 class="error_message"><?= $message ?? ''; ?></h4>
+        <div class="log">
+            <p class="login_text">Логин</p>
+            <input class="login_input" type="text" placeholder="Логин" name="login">
+        </div>
+        <div class="password">
+            <p class="login_text"> Пароль</p>
+            <input class="login_input" type="password" placeholder="Пароль" name="password">
+        </div>
+        <button class="back"><a class="login" href="<?= app()->route->getUrl('/') ?>">Вход</a></button>
     </form>
-<?php endif;
+</div>
+
