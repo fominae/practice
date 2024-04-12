@@ -1,5 +1,5 @@
 <div class="content">
-    <img class="image" src="/pop-it-mvc/public/media/marchcharact.jpg">
+    <img class="image" src="/practice/public/media/marchcharact.jpg">
     <h2>ГЛАВНАЯ ИНФОРМАЦИЯ</h2>
     <div class="container">
         <div class="article">
@@ -28,11 +28,11 @@
         <div class="footer_information">
         <div class="footer_info">
             <p>pochta@mail.ru </p>
-            <img class="footer_image" src="/pop-it-mvc/public/media/free-icon-mail-icon-5757765.png">
+            <img class="footer_image" src="/practice/public/media/free-icon-mail-icon-5757765.png">
         </div>
         <div class="footer_info">
             <p>instagram.com</p>
-            <img class="footer_image" src="/pop-it-mvc/public/media/free-icon-photo-13266180.png">
+            <img class="footer_image" src="/practice/public/media/free-icon-photo-13266180.png">
         </div>
         </div>
     </div>

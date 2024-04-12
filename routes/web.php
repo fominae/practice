@@ -12,3 +12,6 @@ Route::add('GET', '/create', [Controller\Employee::class, 'add_employee'])->midd
 Route::add('GET', '/employee', [Controller\Employee::class, 'employee'])->middleware('auth', 'roleEmployee');
 Route::add('GET', '/add_departmen', [Controller\Employee::class, 'add_departmen'])->middleware('auth', 'roleEmployee');
 Route::add('GET', '/edit', [Controller\Employee::class, 'edit'])->middleware('auth', 'roleEmployee');
+
+
+
