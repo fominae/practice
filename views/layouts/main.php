@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Human Resources</title>
-    <link rel="stylesheet" href="/practice/public/css/style.css">
+    <link rel="stylesheet" href="/pop-it-mvc/public/css/style.css">
 </head>
 <body>
 <div class="navbar">
