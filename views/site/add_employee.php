@@ -5,6 +5,7 @@ if (app()->auth::checkRole()):
     <div class="login_form">
         <h1>ДОБАВЛЕНИЕ НОВОГО СОТРУДНИКА ОТДЕЛА КАДРОВ</h1>
         <form class="add_employee_container" method="post">
+            <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
             <h4 class="error_message"><?= $message ?? ''; ?></h4>
             <div class="log">
                 <p class="title_add">Логин</p>

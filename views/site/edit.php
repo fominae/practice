@@ -1,6 +1,7 @@
 <div class="new_employee_form">
     <h1>РЕДАКТИРОВАНИЕ</h1>
     <form class="edit_employee" method="post">
+        <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
         <h4 class="error_message"><?= $message ?? ''; ?></h4>
         <div class="log">
             <p>Фамилия*</p>
