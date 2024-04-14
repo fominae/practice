@@ -11,7 +11,7 @@ class Current_position extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'employee_id',
+        'employeer_id',
         'position_id',
     ];
 
