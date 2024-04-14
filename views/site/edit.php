@@ -26,7 +26,7 @@
         </div>
         <div class="adress">
             <p>Адрес прописки</p>
-            <input class="login_input" type="text" placeholder="Иванович" name="password">
+            <input class="login_input" type="text" placeholder="Адрес" name="password">
         </div>
         <div class="new_employee_employee_dropdown">
             <div class="new_employee_view_dropdown">

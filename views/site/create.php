@@ -5,15 +5,15 @@
         <h4 class="error_message"><?= $message ?? ''; ?></h4>
         <div class="log">
             <p>Фамилия*</p>
-            <input class="login_input" type="text" placeholder="Иванов" name="login">
+            <input class="login_input" type="text" placeholder="Иванов" name="surname">
         </div>
         <div class="log">
             <p>Имя*</p>
-            <input class="login_input" type="text" placeholder="Иван" name="login">
+            <input class="login_input" type="text" placeholder="Иван" name="name">
         </div>
         <div class="password">
             <p>Отчество</p>
-            <input class="login_input" type="password" placeholder="Иванович" name="password">
+            <input class="login_input" type="text" placeholder="Иванович" name="patronymic">
         </div>
         <div class="gender">
             <p>Пол</p>
@@ -22,40 +22,25 @@
         </div>
         <div class="date">
             <p>Дата рождения</p>
-            <input class="login_input" type="date" placeholder="Иванович" name="password">
+            <input class="login_input" type="date" placeholder="Дата рождения" name="birthdate">
         </div>
         <div class="adress">
             <p>Адрес прописки</p>
-            <input class="login_input" type="text" placeholder="Иванович" name="password">
+            <input class="login_input" type="text" placeholder="Адрес" name="address">
         </div>
-        <div class="new_employee_employee_dropdown">
-            <div class="new_employee_view_dropdown">
-                <select class="new_employee_department_structure">
-                    <option label="Должность" value="1" selected></option>
-                    <option>Должность 1</option>
-                    <option>Должность 2</option>
-                    <option>Должность 3</option>
-                </select>
-            </div>
-            <div class="new_employee_view_dropdown">
-                <select class="new_employee_department_structure">
-                    <option label="Подразделение" value="1" selected></option>
-                    <option>Подразделение 1</option>
-                    <option>Подразделение 2</option>
-                    <option>Подразделение 3</option>
-                </select>
-            </div>
-            <div class="new_employee_view_dropdown">
-                <select class="new_employee_department_structure">
-                    <option label="Состав" value="1" selected></option>
-                    <option>Состав 1</option>
-                    <option>Состав 2</option>
-                    <option>Состав 3</option>
-                </select>
-            </div>
+        <div class="new_employee_view_dropdown">
+            <select class="new_employee_department_structure" name="staff_id">
+                <option label="Состав" value="1" selected></option>
+                <?php
+                // Получение данных из базы данных
+                foreach ($staff as $staff) {
+                    echo "<option label='$staff->title'>$staff->id</option>";
+                }
+                ?>
+            </select>
         </div>
         <div class="button_dropdown">
-            <button class="back">Добавить</button>
+            <button class="back">Далее</button>
         </div>
     </form>
 </div>

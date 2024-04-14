@@ -5,16 +5,14 @@ namespace Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Current_position extends Model
 {
     use HasFactory;
     public $timestamps = false;
 
     protected $fillable = [
-        'departmen_type_id',
-        'title',
-        'number_staff',
-        'employee_id'
+        'employee_id',
+        'position_id',
     ];
 
 }
