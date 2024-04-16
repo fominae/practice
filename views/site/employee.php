@@ -49,11 +49,11 @@
 
                 foreach ($department_types as $department_type) {
                     foreach ($departments as $department) {
-                        if ($department->id == $el) {
+                        if ($department->id == $el&&$department_type->id == $department->departmen_type_id) {
                             foreach ($department_employees as $department_employee) {
                                 if ($department_employee->department_id == $department->id) {
                                     foreach ($employees as $employee) {
-                                        if ($employee->id == $department_employee->employeer_id) {
+                                        if ($employee->id == $department_employee->employeer_id && $department_employee->department_id == $department->id ) {
                                             echo '<div class="content_form">';
                                             echo '<div class="information_form_employee">';
                                             echo '<h2>';
