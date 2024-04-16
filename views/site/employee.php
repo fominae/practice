@@ -6,93 +6,218 @@
                 <a class="employee_link" href="<?= app()->route->getUrl('/create') ?>"> Добавить сотрудника</a>
             </div>
             <div class="add_department">
-                <a class="employee_link" href="<?= app()->route->getUrl('/add_departmen') ?>"> Добавить подразделение</a>
+                <a class="employee_link" href="<?= app()->route->getUrl('/add_departmen') ?>"> Добавить
+                    подразделение</a>
             </div>
         </div>
-        <div class="employee_dropdown">
-            <div class="view_dropdown">
-                <select class="department_structure">
-                    <option label="Состав" value="1" selected></option>
-                    <option>Состав 1</option>
-                    <option>Состав 2</option>
-                    <option>Состав 3</option>
-                </select>
+        <form class="employee" method="get">
+            <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+            <div class="employee_dropdown">
+                <div class="view_dropdown">
+                    <select class="department_structure" name="staff_id">
+                        <option label="Состав" value="1" selected></option>
+                        <?php
+                        // Получение данных из базы данных
+                        foreach ($staffs as $staff) {
+                            echo "<option value='$staff->id'>$staff->title</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="view_dropdown">
+                    <?php
+                    // Получение данных из базы данных
+                    foreach ($departments as $department) {
+                        echo "<input type='checkbox' name='department_id[]' value='$department->id'>$department->title</input>";
+                    }
+                    ?>
+                </div>
+                <div class="button_dropdown">
+                    <button class="back">Поиск</button>
+                </div>
             </div>
-            <div class="view_dropdown">
-                <select class="department_structure">
-                    <option label="Вид подразделения" value="1" selected></option>
-                    <option>Состав 1</option>
-                    <option>Состав 2</option>
-                    <option>Состав 3</option>
-                </select>
-            </div>
-            <div class="button_dropdown">
-                <button class="back">Поиск</button>
-            </div>
-        </div>
+        </form>
         <div class="counting">
             <p class="text_counting">Подсчитать средний возраст сотрудников по подразделениям </p>
             <p class="line_counting"></p>
             <input type="checkbox" id="music" name="interest" value="music"/>
         </div>
-        <div class="employee_form">
-            <?php foreach ($employees as $employee): ?>
-            <?php foreach ($departments as $department): ?>
-                <div class="content_form">
 
-                        <div class="information_form_employee">
-                            <h2><?= $employee->name ?></h2>
-                            <p class="text_information"><?= $employee->gender ?></p>
-                            <p class="line_information"></p>
-                            <p class="text_information"><?= $employee->birthdate ?></p>
-                            <p class="line_information"></p>
-                            <p class="text_information"><?= $employee->address ?></p>
-                            <p class="line_information"></p>
-                        </div>
+        <?php
+        if (isset($_GET['department_id'])) {
+            foreach ($_GET['department_id'] as $el) {
 
-                        <div class="department_form_employee">
-                            <h2><?= $department->departmen_type_id ?></h2>
-                            <p class="text_information"><?= $department->title ?></p>
-                            <p class="line_information"></p>
-                            <p class="text_information"><?= $department->number_staff ?></p>
-                            <p class="line_information"></p>
-                            <p class="text_information"><?= $department->employee_id ?></p>
-                            <p class="line_information"></p>
-                        </div>
+                foreach ($department_types as $department_type) {
+                    foreach ($departments as $department) {
+                        if ($department->id == $el) {
+                            foreach ($department_employees as $department_employee) {
+                                if ($department_employee->department_id == $department->id) {
+                                    foreach ($employees as $employee) {
+                                        if ($employee->id == $department_employee->employeer_id) {
+                                            echo '<div class="content_form">';
+                                            echo '<div class="information_form_employee">';
+                                            echo '<h2>';
+                                            echo $employee->surname;
+                                            echo ' ';
+                                            echo $employee->name;
+                                            echo ' ';
+                                            echo $employee->patronymic;
+                                            echo '</h2>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            echo $employee->gender;
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            echo $employee->birthdate;
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            echo $employee->address;
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '</div>';
 
-                            <div class="button_department_form">
-                                <button class="back"><a class="login_department" href="<?= app()->route->getUrl('/edit', ['id' => $employee->id]) ?>">Редактировать</a></button>
-                            </div>
+
+                                            echo '<div class="information_form_employee">';
+                                            echo '<h2>';
+                                            echo $department->title;
+                                            echo '</h2>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            echo $department_type->department_type;
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+
+                                            foreach ($current_positions as $current_position) {
+                                                if ($employee->id == $current_position->employeer_id) {
+                                                    foreach ($positions as $position) {
+                                                        if ($position->id == $current_position->position_id) {
+                                                            echo $position->title;
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            foreach ($staffs as $staffss) {
+                                                if ($staffss->id == $employee->staff_id) {
+                                                    echo $staffss->title;
+                                                }
+                                            }
+                                            echo '</p>';
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '</div>';
+
+                                            echo '</div>';
+
+                                        } else {
+                                            echo ' ';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (isset($_GET['staff_id'])) {
+            foreach ($employees as $employee) {
+                if ($employee->staff_id == $_GET['staff_id']) {
+                    echo '<div class="content_form">';
+                    echo '<div class="information_form_employee">';
+                    echo '<h2>';
+                    echo $employee->surname;
+                    echo ' ';
+                    echo $employee->name;
+                    echo ' ';
+                    echo $employee->patronymic;
+                    echo '</h2>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+                    echo $employee->gender;
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+                    echo $employee->birthdate;
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+                    echo $employee->address;
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '</div>';
 
 
+                    echo '<div class="information_form_employee">';
+                    echo '<h2>';
 
-                </div>
-                <?php endforeach; ?>
-            <?php endforeach; ?>
-        </div>
-            <div class="content_form">
-                <div class="information_form_employee">
-                    <h2>ФИО сотрудника</h2>
-                    <p class="text_information">Пол</p>
-                    <p class="line_information"></p>
-                    <p class="text_information">Дата рождения</p>
-                    <p class="line_information"></p>
-                    <p class="text_information">Адрес прописки</p>
-                    <p class="line_information"></p>
-                </div>
-                <div class="department_form_employee">
-                    <h2>Название подразделения</h2>
-                    <p class="text_information">Вид подразделения</p>
-                    <p class="line_information"></p>
-                    <p class="text_information">Должность</p>
-                    <p class="line_information"></p>
-                    <p class="text_information">Состав</p>
-                    <p class="line_information"></p>
-                </div>
-                <div class="button_department_form">
-                    <button class="back"><a class="login_department" href="<?= app()->route->getUrl('/edit') ?>">Редактировать</a>
-                    </button>
-                </div>
-            </div>
-        </div>
+                    foreach ($department_employees as $department_employee) {
+                        if ($employee->id == $department_employee->employeer_id) {
+                            foreach ($departments as $department) {
+                                if ($department->id == $department_employee->department_id) {
+                                    echo $department->title;
+                                }
+                            }
+                        }
+                    }
+                    echo '</h2>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+                    echo $department_type->department_type;
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+
+                    foreach ($current_positions as $current_position) {
+                        if ($employee->id == $current_position->employeer_id) {
+                            foreach ($positions as $position) {
+                                if ($position->id == $current_position->position_id) {
+                                    echo $position->title;
+                                }
+                            }
+                        }
+
+                    }
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '<p class="text_information">';
+                    foreach ($staffs as $staffss) {
+                        if ($staffss->id == $employee->staff_id) {
+                            echo $staffss->title;
+                        }
+                    }
+                    echo '</p>';
+                    echo '<p class="line_information"></p>';
+                    echo '</p>';
+                    echo '</div>';
+
+                    echo '</div>';
+                }
+            }
+
+        }
+        echo '</div>';
+        ?>
     </div>
+</div>
+</div>

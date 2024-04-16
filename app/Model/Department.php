@@ -15,5 +15,4 @@ class Department extends Model
         'title',
         'number_staff',
     ];
-
 }

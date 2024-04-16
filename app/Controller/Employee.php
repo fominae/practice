@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Model\Department_employee;
+use Model\Department_employees;
 use Model\User;
 use Src\Request;
 use Src\View;
@@ -14,11 +14,17 @@ use Model\Position;
 use Model\Staff;
 class Employee
 {
-    public function employee(): string
+    public function employee(Request $request): string
     {
         $employees = Employees::all();
         $departments = Department::all();
-        return new View('site.employee',['employees' => $employees, 'departments'=>$departments]);
+        $department_types = Department_type::all();
+        $positions= Position::all();
+        $current_positions=Current_position::all();
+        $staffs = Staff::all();
+        $array_deps = $request -> get('department_id[]');
+        $department_employees = Department_employees::all();
+        return new View('site.employee',['array_deps' => $array_deps,'positions' => $positions,'current_positions' => $current_positions,'department_employees' => $department_employees,'employees' => $employees,'staffs' => $staffs, 'departments'=>$departments, 'department_types' =>$department_types]);
     }
 
 
@@ -37,10 +43,10 @@ class Employee
 
     public function create_employee(Request $request): string
     {
-        if($request->method==='POST' && Department_employee::create($request->all())  && Department::create($request->all()) && Current_position::create($request->all()) ){
+        if($request->method==='POST' && Department_employees::create($request->all())  && Department::create($request->all()) && Current_position::create($request->all()) ){
             app()->route->redirect('/employee');
         }
-        $department_employees = Department_employee::all();
+        $department_employees = Department_employees::all();
         $departments = Department::all();
         $department_types = Department_type::all();
         $employees = Employees::all();
@@ -70,5 +76,8 @@ class Employee
     {
         return new View('site.edit');
     }
+
+
+
 }
 

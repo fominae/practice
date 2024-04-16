@@ -17,8 +17,8 @@
         </div>
         <div class="gender">
             <p>Пол</p>
-            <input type="radio" name="gender" value="male"> Женский
-            <input type="radio" name="gender" value="female"> Мужской
+            <input type="radio" name="gender" value="Женский"> Женский
+            <input type="radio" name="gender" value="Мужской"> Мужской
         </div>
         <div class="date">
             <p>Дата рождения</p>

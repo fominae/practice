@@ -359,8 +359,6 @@ input[type=password]::placeholder {
 }
 
 .content_form {
-    width: 944px;
-    height: 147px;
     background-color: rgba(62, 88, 130, 0.18);
     padding: 27px 27px 27px 27px;
     justify-content: center;
