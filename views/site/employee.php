@@ -25,10 +25,16 @@
                     </select>
                 </div>
                 <div class="view_dropdown">
+                    <h2>Подразделение</h2>
                     <?php
                     // Получение данных из базы данных
                     foreach ($departments as $department) {
+
+                        echo "<div>";
+                        echo '<p class="text_information">';
                         echo "<input type='checkbox' name='department_id[]' value='$department->id'>$department->title</input>";
+                        echo "</p>";
+                        echo "</div>";
                     }
                     ?>
                 </div>
@@ -49,7 +55,7 @@
 
                 foreach ($department_types as $department_type) {
                     foreach ($departments as $department) {
-                        if ($department->id == $el&&$department_type->id == $department->departmen_type_id) {
+                        if ($department->id == $el && $department_type->id == $department->departmen_type_id) {
                             foreach ($department_employees as $department_employee) {
                                 if ($department_employee->department_id == $department->id) {
                                     foreach ($employees as $employee) {
@@ -169,20 +175,25 @@
                     echo '<h2>';
 
                     foreach ($department_employees as $department_employee) {
-                        if ($employee->id == $department_employee->employeer_id) {
+                        if ($employee->id == $department_employee->employeer_id && $employee->staff_id == $_GET['staff_id']) {
                             foreach ($departments as $department) {
                                 if ($department->id == $department_employee->department_id) {
                                     echo $department->title;
+                                    foreach ($department_types as $department_type) {
+                                        if ($department_type->id == $department->departmen_type_id) {
+                                            echo '<p class="line_information"></p>';
+                                            echo '</p>';
+                                            echo '<p class="text_information">';
+                                            echo $department_type->department_type;
+                                            echo '</p>';
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                     echo '</h2>';
-                    echo '<p class="line_information"></p>';
-                    echo '</p>';
-                    echo '<p class="text_information">';
-                    echo $department_type->department_type;
-                    echo '</p>';
+
                     echo '<p class="line_information"></p>';
                     echo '</p>';
                     echo '<p class="text_information">';
