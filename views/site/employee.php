@@ -9,7 +9,11 @@
                 <a class="employee_link" href="<?= app()->route->getUrl('/add_departmen') ?>"> Добавить
                     подразделение</a>
             </div>
+            <div class="add_department">
+                <a class="employee_link" href="<?= app()->route->getUrl('/attaching_department') ?>"> Прикрепить сотрудника к подразделению</a>
+            </div>
         </div>
+
         <form class="employee" method="get">
             <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
             <div class="employee_dropdown">

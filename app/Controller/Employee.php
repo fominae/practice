@@ -76,6 +76,17 @@ class Employee
     {
         return new View('site.edit');
     }
+    public function attaching_department(Request $request): string
+    {
+        if($request->method === 'POST') {
+            if(Department_employees::create($request->all())){
+                app()->route->redirect('/employee');
+            }
+        }
+        $departments = Department::all();
+        $employees = Employees::all();
+        return new View('site.attaching_department',['employees' => $employees,'departments' => $departments,]);
+    }
 
 
 
