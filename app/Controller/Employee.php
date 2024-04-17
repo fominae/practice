@@ -73,19 +73,30 @@ class Employee
 
     public function add_departmen(Request $request): string
     {
+        $errors = [];
         if($request->method === 'POST') {
-            // Получаем данные из свойств объекта Request
+            $validator = new Validator($request->all(), [
+                'title' => ['required','unique:departments,title'],
+            ], [
+                'required' => 'Поле не может быть пустым',
+                'unique' => 'Поле должно быть уникально'
+
+            ]);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+            }
             $data = [
                 'departmen_type_id' => $request->departmen_type_id,
                 'title' => $request->title,
             ];
-            if(Department::create($data)){
+            if(empty($errors) && Department::create($data)){
                 app()->route->redirect('/employee');
             }
         }
         $departments = Department::all();
         $department_types = Department_type::all();
-        return new View('site.add_departmen', ['department_types' => $department_types, 'departments' => $departments]);
+        return new View('site.add_departmen', ['department_types' => $department_types, 'departments' => $departments, 'errors' => $errors]);
     }
 
     public function edit(): string

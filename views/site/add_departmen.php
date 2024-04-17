@@ -3,6 +3,7 @@
     <form class="add_departmen_container" method="post">
         <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
         <div class="add_departmen">
+            <?= isset($errors['title']) ? '<div class="error">' . implode(', ', $errors['title']) . '</div>' : '' ?>
             <input class="login_input" type="text" placeholder="Название подразделения" name="title">
         </div>
         <div class="new_employee_view_dropdown">
