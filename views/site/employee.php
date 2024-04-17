@@ -13,6 +13,9 @@
                 <a class="employee_link" href="<?= app()->route->getUrl('/attaching_department') ?>"> Прикрепить
                     сотрудника к подразделению</a>
             </div>
+            <div class="add_department">
+                <a class="employee_link" href="<?= app()->route->getUrl('/all_employee') ?>"> Все сотрудники</a>
+            </div>
         </div>
 
         <form class="employee" method="get">

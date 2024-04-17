@@ -13,6 +13,7 @@ use Model\Employees;
 use Model\Current_position;
 use Model\Position;
 use Model\Staff;
+
 class Employee
 {
     public function employee(Request $request): string
@@ -20,18 +21,18 @@ class Employee
         $employees = Employees::all();
         $departments = Department::all();
         $department_types = Department_type::all();
-        $positions= Position::all();
-        $current_positions=Current_position::all();
+        $positions = Position::all();
+        $current_positions = Current_position::all();
         $staffs = Staff::all();
         $department_employees = Department_employees::all();
-        return new View('site.employee',['positions' => $positions,'current_positions' => $current_positions,'department_employees' => $department_employees,'employees' => $employees,'staffs' => $staffs, 'departments'=>$departments, 'department_types' =>$department_types]);
+        return new View('site.employee', ['positions' => $positions, 'current_positions' => $current_positions, 'department_employees' => $department_employees, 'employees' => $employees, 'staffs' => $staffs, 'departments' => $departments, 'department_types' => $department_types]);
     }
 
 
     public function add_employee(Request $request): string
     {
         $errors = [];
-        if ($request->method === 'POST'){
+        if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
                 'surname' => ['required'],
                 'name' => ['required'],
@@ -48,18 +49,18 @@ class Employee
             }
 
             $employee = Employees::create($request->all());
-            if(empty($errors) && $employee){
-                $_SESSION['employeer_id']=$employee->id;
+            if (empty($errors) && $employee) {
+                $_SESSION['employeer_id'] = $employee->id;
                 app()->route->redirect('/create_employee');
             }
         }
         $staff = Staff:: all();
-        return new View('site.create',['staff' =>$staff, 'errors' =>$errors]);
+        return new View('site.create', ['staff' => $staff, 'errors' => $errors]);
     }
 
     public function create_employee(Request $request): string
     {
-        if($request->method==='POST' && Department_employees::create($request->all())  && Department::create($request->all()) && Current_position::create($request->all()) ){
+        if ($request->method === 'POST' && Department_employees::create($request->all()) && Department::create($request->all()) && Current_position::create($request->all())) {
             app()->route->redirect('/employee');
         }
         $department_employees = Department_employees::all();
@@ -68,15 +69,15 @@ class Employee
         $employees = Employees::all();
         $current_positions = Current_position::all();
         $positions = Position::all();
-        return new View('site.create_employee',['departments' => $departments,'employees' => $employees,'current_positions' => $current_positions, 'positions' => $positions, 'department_types' => $department_types, 'department_employees' =>$department_employees ]);
+        return new View('site.create_employee', ['departments' => $departments, 'employees' => $employees, 'current_positions' => $current_positions, 'positions' => $positions, 'department_types' => $department_types, 'department_employees' => $department_employees]);
     }
 
     public function add_departmen(Request $request): string
     {
         $errors = [];
-        if($request->method === 'POST') {
+        if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
-                'title' => ['required','unique:departments,title'],
+                'title' => ['required', 'unique:departments,title'],
             ], [
                 'required' => 'Поле не может быть пустым',
                 'unique' => 'Поле должно быть уникально'
@@ -90,7 +91,7 @@ class Employee
                 'departmen_type_id' => $request->departmen_type_id,
                 'title' => $request->title,
             ];
-            if(empty($errors) && Department::create($data)){
+            if (empty($errors) && Department::create($data)) {
                 app()->route->redirect('/employee');
             }
         }
@@ -103,10 +104,11 @@ class Employee
     {
         return new View('site.edit');
     }
+
     public function attaching_department(Request $request): string
     {
         $errors = [];
-        if($request->method === 'POST') {
+        if ($request->method === 'POST') {
             $employeer_id = $request->get('employeer_id');
             $department_id = $request->get('department_id');
 
@@ -117,15 +119,36 @@ class Employee
             if ($existingRecord) {
                 $errors['department'] = 'Сотрудник уже прикреплен к этому подразделению';
             } else {
-                if(Department_employees::create($request->all())){
+                if (Department_employees::create($request->all())) {
                     app()->route->redirect('/employee');
                 }
             }
         }
         $departments = Department::all();
         $employees = Employees::all();
-        return new View('site.attaching_department',['employees' => $employees,'departments' => $departments, 'errors' => $errors]);
+        return new View('site.attaching_department', ['employees' => $employees, 'departments' => $departments, 'errors' => $errors]);
     }
 
+    public function search_employee(Request $request): string
+    {
+        $search = $request->get('search');
+        $employees = Employees::where('name', 'like', '%' . $search . '%')
+            ->orWhere('surname', 'like', '%' . $search . '%')
+            ->orWhere('patronymic', 'like', '%' . $search . '%')
+            ->get();
+
+        if ($employees->isEmpty()) {
+            return new View('site.all_employee', ['message' => 'Такого сотрудника нет']);
+        } else {
+            return new View('site.all_employee', ['employees' => $employees]);
+        }
+    }
+
+    public function all_employee(): string
+    {
+        $employees = Employees::all();
+        return new View('site.all_employee', ['employees' => $employees]);
+
+    }
 }
 
