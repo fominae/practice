@@ -9,9 +9,11 @@ if (app()->auth::checkRole()):
             <h4 class="error_message"><?= $message ?? ''; ?></h4>
             <div class="log">
                 <p class="title_add">Логин</p>
+                <?= isset($errors['login']) ? '<div class="error">' . implode(', ', $errors['login']) . '</div>' : '' ?>
                 <input class="login_input" type="text" placeholder="Логин" name="login">
             </div>
             <div class="password">
+                <?= isset($errors['password']) ? '<div class="error">' . implode(', ', $errors['password']) . '</div>' : '' ?>
                 <p class="title_add">Пароль</p>
                 <input class="login_input" type="password" placeholder="Пароль" name="password">
             </div>
