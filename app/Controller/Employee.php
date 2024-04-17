@@ -5,6 +5,7 @@ namespace Controller;
 use Model\Department_employees;
 use Model\User;
 use Src\Request;
+use Src\Validator\Validator;
 use Src\View;
 use Model\Department_type;
 use Model\Department;
@@ -29,15 +30,31 @@ class Employee
 
     public function add_employee(Request $request): string
     {
+        $errors = [];
         if ($request->method === 'POST'){
+            $validator = new Validator($request->all(), [
+                'surname' => ['required'],
+                'name' => ['required'],
+                'birthdate' => ['required', 'birthdate'],
+                'address' => ['required'],
+                'staff_id' => ['required']
+            ], [
+                'required' => 'Поле пусто',
+                'birthdate' => 'Возраст должен быть не менее 16 лет'
+            ]);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+            }
+
             $employee = Employees::create($request->all());
-            if($employee){
+            if(empty($errors) && $employee){
                 $_SESSION['employeer_id']=$employee->id;
                 app()->route->redirect('/create_employee');
             }
         }
         $staff = Staff:: all();
-        return new View('site.create',['staff' =>$staff]);
+        return new View('site.create',['staff' =>$staff, 'errors' =>$errors]);
     }
 
     public function create_employee(Request $request): string

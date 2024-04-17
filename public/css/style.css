@@ -436,6 +436,18 @@ input[type=password]::placeholder {
 
 }
 
+.add_employees {
+    width: 700px;
+    height: 500px;
+    background-color: rgba(62, 88, 130, 0.18);
+    padding: 50px 100px 0 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+
+}
+
 .add_employee input {
     padding: 10px;
     margin-bottom: 10px;
@@ -443,6 +455,16 @@ input[type=password]::placeholder {
 }
 
 .add_employee button {
+    background: #3E5882;
+    height: 54px;
+    width: 132px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+}
+.add_employees button {
     background: #3E5882;
     height: 54px;
     width: 132px;
@@ -460,7 +482,18 @@ input[type=password]::placeholder {
     align-items: center;
     width: 475px;
     height: 54px;
-    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.new_employee_department_structures {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 475px;
+    height: 54px;
     font-weight: bold;
     font-size: 20px;
     padding: 10px;

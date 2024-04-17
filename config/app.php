@@ -18,6 +18,7 @@ return [
     'validators' => [
         'required' => \Validators\RequireValidator::class,
         'unique' => \Validators\UniqueValidator::class,
-        'NoneExistedLogin' => \Validators\NoneExistedLoginValidator::class
+        'NoneExistedLogin' => \Validators\NoneExistedLoginValidator::class,
+        'birthdate' => \Validators\BirthdateValidator::class,
     ],
 ];
