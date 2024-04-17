@@ -32,14 +32,22 @@
                 <div class="view_dropdown">
                     <h3>Подразделение</h3>
                     <?php
-                    // Получение данных из базы данных
                     foreach ($departments as $department) {
+                        $hasEmployees = false;
+                        foreach ($department_employees as $department_employee) {
+                            if ($department_employee->department_id == $department->id) {
+                                $hasEmployees = true;
+                                break;
+                            }
+                        }
 
-                        echo "<div>";
-                        echo '<p class="text_information">';
-                        echo "<input type='checkbox' name='department_id[]' value='$department->id'>$department->title</input>";
-                        echo "</p>";
-                        echo "</div>";
+                        if ($hasEmployees) {
+                            echo "<div>";
+                            echo '<p class="text_information">';
+                            echo "<input type='checkbox' name='department_id[]' value='$department->id'>$department->title</input>";
+                            echo "</p>";
+                            echo "</div>";
+                        }
                     }
                     ?>
                 </div>
@@ -53,9 +61,9 @@
             <?php
             if (isset($_GET['department_id'])) {
                 $uniqueEmployees = [];
-                $sumbirth=0;
-                $vseage=0;
-                $colvoemp=0;
+                $sumbirth = 0;
+                $vseage = 0;
+                $colvoemp = 0;
                 $today = new DateTime();
                 foreach ($_GET['department_id'] as $departmentId) {
                     foreach ($department_employees as $department_employee) {
@@ -70,13 +78,13 @@
                 }
 
                 foreach ($uniqueEmployees as $employee) {
-                    $diff= $today->diff(new DateTime($employee->birthdate));
-                    $age=$diff->y;
-                    $vseage+=$age;
-                    $colvoemp+=1;
+                    $diff = $today->diff(new DateTime($employee->birthdate));
+                    $age = $diff->y;
+                    $vseage += $age;
+                    $colvoemp += 1;
 
                 }
-                $srage=$vseage/$colvoemp;
+                $srage = $vseage / $colvoemp;
                 echo '<div class="count" red"> ';
                 echo round($srage, 0);
                 echo '</div>';
@@ -158,7 +166,7 @@
                     if ($employee->id == $current_position->employeer_id) {
                         foreach ($positions as $position) {
                             if ($position->id == $current_position->position_id) {
-                                echo '<p class="text_information">'. $position->title .'</p>';
+                                echo '<p class="text_information">' . $position->title . '</p>';
                             }
                         }
                     }
