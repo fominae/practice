@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Model\Article;
 use Src\View;
 use Src\Request;
 use Model\User;
@@ -13,7 +14,8 @@ class Site
 {
     public function index(): string
     {
-        return new View('site.home');
+        $articles = Article::all();
+        return new View('site.home', ['articles' => $articles]);
     }
 
     public function hello(): string

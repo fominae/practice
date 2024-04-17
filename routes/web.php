@@ -18,5 +18,6 @@ Route::add(['GET', 'POST'], '/attaching_department', [Controller\Employee::class
 Route::add('GET', '/calculate_employees', [Controller\Employee::class, 'calculateEmployees'])->middleware('auth', 'roleEmployee');
 Route::add(['GET', 'POST'], '/all_employee', [Controller\Employee::class, 'all_employee'])->middleware('auth', 'roleEmployee');
 Route::add(['GET', 'POST'], '/search_employee', [Controller\Employee::class, 'search_employee'])->middleware('auth', 'roleEmployee');
+Route::add(['GET', 'POST'], '/add_article', [Controller\Employee::class, 'add_article'])->middleware('auth', 'roleEmployee');
 
 

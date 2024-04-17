@@ -1,23 +1,15 @@
 <div class="content">
     <img class="image" src="/pop-it-mvc/public/media/marchcharact.jpg">
     <h2>ГЛАВНАЯ ИНФОРМАЦИЯ</h2>
-    <div class="container">
-        <div class="article">
-            <h2>СОВЕТЫ ПО УПРАВЛЕНИЮ ПЕРСОНАЛОМ</h2>
-            <p>Успех компании зависит от её персонала, и от того — как он работает. Сотрудники организации хорошо
-                выполняют свои обязанности, если ими умело руководят...</p>
-        </div>
-        <div class="article">
-            <h2>ЦЕЛИ ОТДЕЛА КАДРОВ</h2>
-            <p>Цель отдела кадров - это способствование достижению целей предприятия (организации) путем обеспечения
-                предприятия необходимыми кадрами и эффективного использования потенциала работников...</p>
-        </div>
-        <div class="article">
-            <h2>ЗАДАЧИ ОТДЕЛА КАДРОВ</h2>
-            <p>Основная задача отдела кадров - правильно учитывать работу сотрудников, определять количество рабочих,
-                выходных и больничных дней для расчета зарплаты, отпусков и подачи сведений в бухгалтерию
-                организации...</p>
-        </div>
+    <button class="back"><a class="login" href="<?= app()->route->getUrl('/add_article') ?>">Добавить статью</a></button>
+    <div class="content_articles">
+        <?php foreach ($articles as $article): ?>
+            <div class="article">
+                <h2><?= $article->title ?></h2>
+                <p><?= $article->description ?></p>
+                <div class="article_image"><img width="250px" src="<?= $article->image ?>" alt="<?= $article->title ?>"></div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <footer class="footer">
