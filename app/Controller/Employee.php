@@ -105,14 +105,26 @@ class Employee
     }
     public function attaching_department(Request $request): string
     {
+        $errors = [];
         if($request->method === 'POST') {
-            if(Department_employees::create($request->all())){
-                app()->route->redirect('/employee');
+            $employeer_id = $request->get('employeer_id');
+            $department_id = $request->get('department_id');
+
+            $existingRecord = Department_employees::where('employeer_id', $employeer_id)
+                ->where('department_id', $department_id)
+                ->first();
+
+            if ($existingRecord) {
+                $errors['department'] = 'Сотрудник уже прикреплен к этому подразделению';
+            } else {
+                if(Department_employees::create($request->all())){
+                    app()->route->redirect('/employee');
+                }
             }
         }
         $departments = Department::all();
         $employees = Employees::all();
-        return new View('site.attaching_department',['employees' => $employees,'departments' => $departments,]);
+        return new View('site.attaching_department',['employees' => $employees,'departments' => $departments, 'errors' => $errors]);
     }
 
 }

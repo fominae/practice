@@ -20,5 +20,6 @@ return [
         'unique' => \Validators\UniqueValidator::class,
         'NoneExistedLogin' => \Validators\NoneExistedLoginValidator::class,
         'birthdate' => \Validators\BirthdateValidator::class,
+        'department_employee' => \Validators\ExistedDepartmentTypeValidator::class,
     ],
 ];
