@@ -22,9 +22,8 @@ class Employee
         $positions= Position::all();
         $current_positions=Current_position::all();
         $staffs = Staff::all();
-        $array_deps = $request -> get('department_id[]');
         $department_employees = Department_employees::all();
-        return new View('site.employee',['array_deps' => $array_deps,'positions' => $positions,'current_positions' => $current_positions,'department_employees' => $department_employees,'employees' => $employees,'staffs' => $staffs, 'departments'=>$departments, 'department_types' =>$department_types]);
+        return new View('site.employee',['positions' => $positions,'current_positions' => $current_positions,'department_employees' => $department_employees,'employees' => $employees,'staffs' => $staffs, 'departments'=>$departments, 'department_types' =>$department_types]);
     }
 
 
@@ -87,8 +86,5 @@ class Employee
         $employees = Employees::all();
         return new View('site.attaching_department',['employees' => $employees,'departments' => $departments,]);
     }
-
-
-
 }
 

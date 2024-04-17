@@ -10,7 +10,8 @@
                     подразделение</a>
             </div>
             <div class="add_department">
-                <a class="employee_link" href="<?= app()->route->getUrl('/attaching_department') ?>"> Прикрепить сотрудника к подразделению</a>
+                <a class="employee_link" href="<?= app()->route->getUrl('/attaching_department') ?>"> Прикрепить
+                    сотрудника к подразделению</a>
             </div>
         </div>
 
@@ -29,7 +30,7 @@
                     </select>
                 </div>
                 <div class="view_dropdown">
-                    <h2>Подразделение</h2>
+                    <h3>Подразделение</h3>
                     <?php
                     // Получение данных из базы данных
                     foreach ($departments as $department) {
@@ -50,97 +51,106 @@
         <div class="counting">
             <p class="text_counting">Подсчитать средний возраст сотрудников по подразделениям </p>
             <p class="line_counting"></p>
+
             <input type="checkbox" id="music" name="interest" value="music"/>
         </div>
 
         <?php
         if (isset($_GET['department_id'])) {
-            foreach ($_GET['department_id'] as $el) {
+            $uniqueEmployees = [];
 
-                foreach ($department_types as $department_type) {
-                    foreach ($departments as $department) {
-                        if ($department->id == $el && $department_type->id == $department->departmen_type_id) {
-                            foreach ($department_employees as $department_employee) {
-                                if ($department_employee->department_id == $department->id) {
-                                    foreach ($employees as $employee) {
-                                        if ($employee->id == $department_employee->employeer_id && $department_employee->department_id == $department->id ) {
-                                            echo '<div class="content_form">';
-                                            echo '<div class="information_form_employee">';
-                                            echo '<h2>';
-                                            echo $employee->surname;
-                                            echo ' ';
-                                            echo $employee->name;
-                                            echo ' ';
-                                            echo $employee->patronymic;
-                                            echo '</h2>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
-                                            echo $employee->gender;
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
-                                            echo $employee->birthdate;
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
-                                            echo $employee->address;
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '</div>';
+            foreach ($_GET['department_id'] as $departmentId) {
+                foreach ($department_employees as $department_employee) {
+                    if ($department_employee->department_id == $departmentId) {
+                        foreach ($employees as $employee) {
+                            if ($employee->id == $department_employee->employeer_id) {
+                                $uniqueEmployees[$employee->id] = $employee;
+                            }
+                        }
+                    }
+                }
+            }
 
 
-                                            echo '<div class="information_form_employee">';
-                                            echo '<h2>';
-                                            echo $department->title;
-                                            echo '</h2>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
-                                            echo $department_type->department_type;
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
+            foreach ($uniqueEmployees as $employee) {
 
-                                            foreach ($current_positions as $current_position) {
-                                                if ($employee->id == $current_position->employeer_id) {
-                                                    foreach ($positions as $position) {
-                                                        if ($position->id == $current_position->position_id) {
-                                                            echo $position->title;
-                                                        }
-                                                    }
-                                                }
+                echo '<div class="content_form">';
+                echo '<div class="information_form_employee">';
+                echo '<h2>';
+                echo $employee->surname . ' ' . $employee->name . ' ' . $employee->patronymic;
+                echo '</h2>';
+                echo '<p class="line_information"></p>';
+                echo '<p class="text_information">' . $employee->gender . '</p>';
+                echo '<p class="line_information"></p>';
+                echo '<p class="text_information">' . $employee->birthdate . '</p>';
+                echo '<p class="line_information"></p>';
+                echo '<p class="text_information">' . $employee->address . '</p>';
+                echo '<p class="line_information"></p>';
+                echo '</div>';
 
-                                            }
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '<p class="text_information">';
-                                            foreach ($staffs as $staffss) {
-                                                if ($staffss->id == $employee->staff_id) {
-                                                    echo $staffss->title;
-                                                }
-                                            }
-                                            echo '</p>';
-                                            echo '<p class="line_information"></p>';
-                                            echo '</p>';
-                                            echo '</div>';
-
-                                            echo '</div>';
-
-                                        } else {
-                                            echo ' ';
-                                        }
-                                    }
+                $departmentTitles = [];
+                foreach ($department_employees as $department_employee) {
+                    if ($department_employee->employeer_id == $employee->id) {
+                        foreach ($departments as $department) {
+                            if ($department->id == $department_employee->department_id) {
+                                if (!in_array($department->title, $departmentTitles)) {
+                                    $departmentTitles[] = $department->title;
                                 }
                             }
                         }
                     }
                 }
+
+                $departmentTypes = [];
+                foreach ($department_employees as $department_employee) {
+                    if ($department_employee->employeer_id == $employee->id) {
+                        foreach ($departments as $department) {
+                            if ($department->id == $department_employee->department_id) {
+                                if (!in_array($department->departmen_type_id, $departmentTypes)) {
+                                    $departmentTypes[] = $department->departmen_type_id;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                echo '<div class="information_form_employee">';
+                foreach ($departmentTitles as $departmentTitle) {
+                    echo '<h2>' . $departmentTitle . '</h2>';
+                }
+                echo '<p class="line_information"></p>';
+                foreach ($departmentTypes as $departmentType) {
+                    foreach ($department_types as $type) {
+                        if ($type->id == $departmentType) {
+                            echo '<p class="text_information">' . $type->department_type . '</p>';
+                        }
+                    }
+                }
+                echo '<p class="line_information"></p>';
+                foreach ($current_positions as $current_position) {
+                    if ($employee->id == $current_position->employeer_id) {
+                        foreach ($positions as $position) {
+                            if ($position->id == $current_position->position_id) {
+                                echo '<p class="text_information">'. $position->title .'</p>';
+                            }
+                        }
+                    }
+
+                }
+                echo '</p>';
+                echo '<p class="line_information"></p>';
+                echo '</p>';
+                echo '<p class="text_information">';
+                foreach ($staffs as $staffss) {
+                    if ($staffss->id == $employee->staff_id) {
+                        echo $staffss->title;
+                    }
+                }
+                echo '</p>';
+                echo '<p class="line_information"></p>';
+                echo '</p>';
+                echo '</div>';
+                echo '</div>';
             }
         }
         if (isset($_GET['staff_id'])) {
@@ -182,7 +192,9 @@
                         if ($employee->id == $department_employee->employeer_id && $employee->staff_id == $_GET['staff_id']) {
                             foreach ($departments as $department) {
                                 if ($department->id == $department_employee->department_id) {
+                                    echo '<h2>';
                                     echo $department->title;
+                                    echo '</h2>';
                                     foreach ($department_types as $department_type) {
                                         if ($department_type->id == $department->departmen_type_id) {
                                             echo '<p class="line_information"></p>';
@@ -196,7 +208,6 @@
                             }
                         }
                     }
-                    echo '</h2>';
 
                     echo '<p class="line_information"></p>';
                     echo '</p>';
@@ -210,7 +221,6 @@
                                 }
                             }
                         }
-
                     }
                     echo '</p>';
                     echo '<p class="line_information"></p>';
