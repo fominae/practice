@@ -8,10 +8,12 @@ if (!app()->auth::check()):
             <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
             <div class="log">
                 <p class="login_text">Логин</p>
+                <?= isset($errors['login']) ? '<div class="error">' . implode(', ', $errors['login']) . '</div>' : '' ?>
                 <input class="login_input" type="text" placeholder="Логин" name="login">
             </div>
             <div class="password">
                 <p class="login_text"> Пароль</p>
+                <?= isset($errors['password']) ? '<div class="error">' . implode(', ', $errors['password']) . '</div>' : '' ?>
                 <input class="login_input" type="password" placeholder="Пароль" name="password">
             </div>
             <button class="back">Вход</button>

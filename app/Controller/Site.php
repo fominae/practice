@@ -15,10 +15,12 @@ class Site
     {
         return new View('site.home');
     }
-        public function hello(): string
+
+    public function hello(): string
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
+
     public function signup(Request $request): string
     {
         if ($request->method === 'POST') {
@@ -32,7 +34,7 @@ class Site
                 'unique' => 'Поле :field должно быть уникально'
             ]);
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return new View('site.signup',
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
             }
@@ -46,19 +48,28 @@ class Site
 
     public function login(Request $request): string
     {
-        //Если просто обращение к странице, то отобразить форму
-        if ($request->method === 'GET') {
-            return new View('site.login');
+        $errors = [];
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'login' => ['required', 'NoneExistedLogin'],
+                'password' => ['required'],
+            ], [
+                'required' => 'Поле не может быть пустым',
+                'NoneExistedLogin' => 'Логин не существует',
+            ]);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+            }
+            if (empty($errors) && Auth::attempt($request->all()) && Auth::checkRole()) {
+                app()->route->redirect('/add_employee');
+            } else if (empty($errors) && Auth::attempt($request->all())) {
+                app()->route->redirect('/employee');
+            }
         }
-        //Если удалось аутентифицировать пользователя, то редирект
-        if (Auth::attempt($request->all()) && Auth::checkRole()) {
-            app()->route->redirect('/add_employee');
-        }else if(Auth::attempt($request->all())){
-            app()->route->redirect('/employee');
-        }
-        //Если аутентификация не удалась, то сообщение об ошибке
-        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
+        return new View('site.login', ['errors' => $errors]);
     }
+
 
     public function logout(): void
     {
