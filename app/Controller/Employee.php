@@ -86,5 +86,6 @@ class Employee
         $employees = Employees::all();
         return new View('site.attaching_department',['employees' => $employees,'departments' => $departments,]);
     }
+
 }
 

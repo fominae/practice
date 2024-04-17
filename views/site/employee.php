@@ -49,16 +49,44 @@
             </div>
         </form>
         <div class="counting">
-            <p class="text_counting">Подсчитать средний возраст сотрудников по подразделениям </p>
-            <p class="line_counting"></p>
+            <p class="text_counting">Подсчитать средний возраст сотрудников по подразделениям</p>
+            <?php
+            if (isset($_GET['department_id'])) {
+                $uniqueEmployees = [];
+                $sumbirth=0;
+                $vseage=0;
+                $colvoemp=0;
+                $today = new DateTime();
+                foreach ($_GET['department_id'] as $departmentId) {
+                    foreach ($department_employees as $department_employee) {
+                        if ($department_employee->department_id == $departmentId) {
+                            foreach ($employees as $employee) {
+                                if ($employee->id == $department_employee->employeer_id) {
+                                    $uniqueEmployees[$employee->id] = $employee;
+                                }
+                            }
+                        }
+                    }
+                }
 
-            <input type="checkbox" id="music" name="interest" value="music"/>
+                foreach ($uniqueEmployees as $employee) {
+                    $diff= $today->diff(new DateTime($employee->birthdate));
+                    $age=$diff->y;
+                    $vseage+=$age;
+                    $colvoemp+=1;
+
+                }
+                $srage=$vseage/$colvoemp;
+                echo '<div class="count" red"> ';
+                echo round($srage, 0);
+                echo '</div>';
+            }
+            ?>
+
         </div>
 
         <?php
         if (isset($_GET['department_id'])) {
-            $uniqueEmployees = [];
-
             foreach ($_GET['department_id'] as $departmentId) {
                 foreach ($department_employees as $department_employee) {
                     if ($department_employee->department_id == $departmentId) {
@@ -87,7 +115,6 @@
                 echo '<p class="text_information">' . $employee->address . '</p>';
                 echo '<p class="line_information"></p>';
                 echo '</div>';
-
                 $departmentTitles = [];
                 foreach ($department_employees as $department_employee) {
                     if ($department_employee->employeer_id == $employee->id) {

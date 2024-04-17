@@ -316,7 +316,6 @@ input[type=password]::placeholder {
 
 .add_department {
     border-bottom: solid 1px #3E5882;
-    height: 35px;
 }
 
 .add {
@@ -596,4 +595,14 @@ input[type=password]::placeholder {
     flex-direction: row;
     gap: 50px;
     align-items: center;
+}
+
+.count{
+    border-bottom: solid 1px #3E5882;
+    width: 40px;
+    color: #3E5882;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    text-align: center;
 }
