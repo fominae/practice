@@ -2,6 +2,7 @@
     <h1>ВСЕ СОТРУДНИКИ</h1>
     <div class="search_form">
         <form action="<?= app()->route->getUrl('/search_employee') ?>" method="get">
+            <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
             <input class="employee_search" type="text" name="search" required>
             <div class="button_dropdown">
                 <button class="back">Поиск</button>
