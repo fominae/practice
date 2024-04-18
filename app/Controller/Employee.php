@@ -61,7 +61,7 @@ class Employee
 
     public function create_employee(Request $request): string
     {
-        if ($request->method === 'POST' && Department_employees::create($request->all()) && Department::create($request->all()) && Current_position::create($request->all())) {
+        if ($request->method === 'POST' && Department_employees::create($request->all()) && Current_position::create($request->all())) {
             app()->route->redirect('/employee');
         }
         $department_employees = Department_employees::all();
