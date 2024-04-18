@@ -162,7 +162,7 @@ class Employee
                     echo 'Ошибка загрузки файла';
                 }
             }
-            if (Article::create( ['title'=>$request->title, 'description'=>$request->description, 'image' =>  '/pop-it-mvc/public/media/' . $_FILES['image']['name'] . $_FILES['image']['title']])) {
+            if (Article::create( ['title'=>$request->title, 'description'=>$request->description, 'image' =>  '/practice/public/media/' . $_FILES['image']['name'] . $_FILES['image']['title']])) {
                 app()->route->redirect('/home');
             }
         }
