@@ -1,5 +1,5 @@
 <div class="content">
-    <img class="image" src="/pop-it-mvc/public/media/marchcharact.jpg">
+    <img class="image" src="/practice/public/media/marchcharact.jpg">
     <h2>ГЛАВНАЯ ИНФОРМАЦИЯ</h2>
     <button class="back"><a class="login" href="<?= app()->route->getUrl('/add_article') ?>">Добавить статью</a></button>
     <div class="content_articles">
