@@ -156,7 +156,7 @@ class Employee
     {
         if ($request->method === 'POST') {
             $file = $request->files();
-            $path = $file['image']['tmp_name'];
+            $path = $file['image']['name'];
             $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/practice/public/media/";
             $target_file = $target_dir . basename($path);
 
