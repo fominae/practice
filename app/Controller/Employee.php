@@ -157,12 +157,12 @@ class Employee
         if ($request->method === 'POST') {
             $file = $request->files();
             $path = $file['image']['tmp_name'];
-            $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/practic/public/media/";
+            $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/practice/public/media/";
             $target_file = $target_dir . basename($path);
 
             move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
-            if (Article::create(['title' => $request->title, 'description' => $request->description, 'image' => '/practic/public/media/' . $_FILES['image']['name'] . $_FILES['image']['title']])) {
+            if (Article::create(['title' => $request->title, 'description' => $request->description, 'image' => '/practice/public/media/' . $_FILES['image']['name'] . $_FILES['image']['title']])) {
                 app()->route->redirect('/home');
             }
         }
