@@ -4,6 +4,7 @@ namespace Controller;
 
 use Model\Department_employees;
 use Model\User;
+use Search\Search;
 use Src\Request;
 use Src\Validator\Validator;
 use Src\View;
@@ -14,6 +15,7 @@ use Model\Current_position;
 use Model\Position;
 use Model\Staff;
 use Model\Article;
+use function Collect\collection;
 use function Search\search_in_data;
 
 class Employee
@@ -135,25 +137,29 @@ class Employee
     {
         $search = $request->get('search');
         $employees = Employees::all()->toArray();
-        $searchResults = [];
+        $searchResults = collection();
+        $searchClass = new Search();
+
         foreach ($employees as $employee) {
-            $results = search_in_data($search, $employee)->search($search, $employee);
+            $results = $searchClass->search($search, $employee);
             if (!empty($results)) {
                 foreach ($results as $result) {
-                    $searchResults[] = $result;
+                    $searchResults->push($result);
                 }
             }
         }
+
         if (empty($searchResults)) {
             return new View('site.all_employee', ['message' => 'Такого сотрудника нет']);
         } else {
-            $employees = Employees::whereIn('patronymic', $searchResults)
-                ->orWhereIn('name', $searchResults)
-                ->orWhereIn('surname', $searchResults)
+            $employees = Employees::whereIn('patronymic', $searchResults->toArray())
+                ->orWhereIn('name', $searchResults->toArray())
+                ->orWhereIn('surname', $searchResults->toArray())
                 ->get();
             return new View('site.all_employee', ['employees' => $employees]);
         }
     }
+
 
 
     public function all_employee(): string
