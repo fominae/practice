@@ -15,7 +15,6 @@ use Model\Position;
 use Model\Staff;
 use Model\Article;
 use function Search\search_in_data;
-use function Collect\collection;
 
 class Employee
 {
@@ -136,22 +135,15 @@ class Employee
     {
         $search = $request->get('search');
         $employees = Employees::all()->toArray();
-
-        $searchResults = collection($employees)
-            ->map(function ($employee) use ($search) {
-                return search_in_data($search, $employee)->search($search, $employee);
-            })
-            ->each(function ($results) use (&$searchResults) {
-                if (!empty($results)) {
-                    foreach ($results as $result) {
-                        $searchResults[] = $result;
-                    }
+        $searchResults = [];
+        foreach ($employees as $employee) {
+            $results = search_in_data($search, $employee)->search($search, $employee);
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    $searchResults[] = $result;
                 }
-            })
-            ->toArray();
-
-        $searchResults = array_merge(...$searchResults);
-
+            }
+        }
         if (empty($searchResults)) {
             return new View('site.all_employee', ['message' => 'Такого сотрудника нет']);
         } else {
@@ -162,6 +154,7 @@ class Employee
             return new View('site.all_employee', ['employees' => $employees]);
         }
     }
+
 
     public function all_employee(): string
     {
