@@ -14,6 +14,7 @@ use Model\Current_position;
 use Model\Position;
 use Model\Staff;
 use Model\Article;
+use function Search\search_in_data;
 
 class Employee
 {
@@ -133,25 +134,33 @@ class Employee
     public function search_employee(Request $request): string
     {
         $search = $request->get('search');
-        $employees = Employees::where('name', 'like', '%' . $search . '%')
-            ->orWhere('surname', 'like', '%' . $search . '%')
-            ->orWhere('patronymic', 'like', '%' . $search . '%')
-            ->get();
-
-        if ($employees->isEmpty()) {
+        $employees = Employees::all()->toArray();
+        $searchResults = [];
+        foreach ($employees as $employee) {
+            $results = search_in_data($search, $employee)->search($search, $employee);
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    $searchResults[] = $result;
+                }
+            }
+        }
+        if (empty($searchResults)) {
             return new View('site.all_employee', ['message' => 'Такого сотрудника нет']);
         } else {
+            $employees = Employees::whereIn('patronymic', $searchResults)
+                ->orWhereIn('name', $searchResults)
+                ->orWhereIn('surname', $searchResults)
+                ->get();
             return new View('site.all_employee', ['employees' => $employees]);
         }
     }
+
 
     public function all_employee(): string
     {
         $employees = Employees::all();
         return new View('site.all_employee', ['employees' => $employees]);
-
     }
-
     public function add_article(Request $request): string
     {
         if ($request->method === 'POST') {

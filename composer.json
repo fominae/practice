@@ -15,7 +15,8 @@
         "illuminate/database": "^10.0@dev",
         "illuminate/events": "^10.0@dev",
         "nikic/fast-route": "^2.0@dev",
-        "fominae/collect": "dev-master"
+        "fominae/collect": "dev-master",
+        "fominae/search": "dev-master"
     },
     "autoload": {
         "psr-4": {
